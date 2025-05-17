@@ -1,0 +1,62 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-account-table
+      author: Anton Buzynnikov
+      changes:
+        - createTable:
+            tableName: account
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    unique: true
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    unique: true
+                    foreignKeyName: fk_account_user
+                    references: user(id)
+              - column:
+                  name: balance
+                  defaultValueNumeric: "0"
+                  type: DECIMAL(15,2)
+              - column:
+                  name: initial_balance
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_updated
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+  - changeSet:
+      id: create-set-initial-balance-trigger
+      author: Anton Buzynnikov
+      changes:
+        - sql:
+            sql: | 
+                CREATE OR REPLACE FUNCTION set_initial_balance_on_insert()
+                RETURNS TRIGGER AS $function$
+                BEGIN
+                  NEW.initial_balance := NEW.balance;
+                  RETURN NEW;
+                END;
+                $function$ LANGUAGE plpgsql;
+              
+                CREATE TRIGGER initial_balance_trigger
+                BEFORE INSERT ON account
+                FOR EACH ROW
+                EXECUTE PROCEDURE set_initial_balance_on_insert();
+            splitStatements: false
+            endDelimiter: //
+            
+
+  
+              
+              

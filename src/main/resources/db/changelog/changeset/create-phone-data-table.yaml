@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-phone-data-table
+      author: Anton Buzynnikov
+      changes:
+        - createTable:
+            tableName: phone_data
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    unique: true
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    references: user(id)
+                    foreignKeyName: fk_phone_user
+              - column:
+                  name: phone
+                  type: varchar(13)

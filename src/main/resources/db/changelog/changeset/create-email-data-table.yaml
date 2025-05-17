@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-email-data-table
+      author: Anton Buzynnikov
+      changes:
+        - createTable:
+            tableName: email_data
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    unique: true
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    references: user(id)
+                    foreignKeyName: email_data_user_fk
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: email_unique_constraint

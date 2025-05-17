@@ -1,0 +1,72 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-data-on-user
+      author: Anton Buzynnikov
+      changes:
+        - insert:
+            tableName: user
+            columns:
+              - column:
+                  name: name
+                  value: "Иван Иванов"
+              - column:
+                  name: date_of_birth
+                  value: "15.07.1990"
+              - column:
+                  name: password
+                  value: "securePass123"
+        - insert:
+            tableName: user
+            columns:
+              - column:
+                  name: name
+                  value: "Мария Петрова"
+              - column:
+                  name: date_of_birth
+                  value: "22.11.1985"
+              - column:
+                  name: password
+                  value: "mariaPetrovaPassword"
+        - insert:
+            tableName: user
+            columns:
+              - column:
+                  name: name
+                  value: "Алексей Смирнов"
+              - column:
+                  name: date_of_birth
+                  value: "03.05.1978"
+              - column:
+                  name: password
+                  value: "alexSmirnov78"
+  - changeSet:
+      id: insert-data-on-account
+      author: Anton Buzynnikov
+      changes:
+        - insert:
+            tableName: account
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: balance
+                  value: 1500.75
+        - insert:
+            tableName: account
+            columns:
+              - column:
+                  name: user_id
+                  value: 2
+              - column:
+                  name: balance
+                  value: 3200.00
+        - insert:
+            tableName: account
+            columns:
+              - column:
+                  name: user_id
+                  value: 3
+              - column:
+                  name: balance
+                  value: 500.50

@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-user-table
+      author: Anton Buzynnikov
+      changes:
+        - createTable:
+            tableName: user
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    unique: true
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(500)
+              - column:
+                  name: date_of_birth
+                  type: VARCHAR(10)
+                  remarks: Дата будет интерпретирована в формате DMY
+              - column:
+                  name: password
+                  type: VARCHAR(500)
+                  constraints:
+                    checkConstraint: "LENGTH(password) between 8 and 500"
