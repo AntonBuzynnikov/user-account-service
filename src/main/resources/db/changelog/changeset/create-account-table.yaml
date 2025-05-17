@@ -28,7 +28,7 @@ databaseChangeLog:
                   type: DECIMAL(15,2)
               - column:
                   name: initial_balance
-                  type: bigint
+                  type: DECIMAL(15,2)
                   constraints:
                     nullable: false
               - column:
