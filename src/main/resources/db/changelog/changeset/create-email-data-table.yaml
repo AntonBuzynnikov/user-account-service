@@ -17,7 +17,7 @@ databaseChangeLog:
                   name: user_id
                   type: bigint
                   constraints:
-                    references: user(id)
+                    references: user_table(id)
                     foreignKeyName: email_data_user_fk
                     nullable: false
               - column:

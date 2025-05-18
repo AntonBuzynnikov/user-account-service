@@ -9,3 +9,5 @@ databaseChangeLog:
       file: db/changelog/changeset/create-email-data-table.yaml
   - include:
       file: db/changelog/changeset/create-phone-data-table.yaml
+  - include:
+      file: db/changelog/changeset/create-procedure-update-balances.yaml

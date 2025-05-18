@@ -21,7 +21,7 @@ databaseChangeLog:
                     nullable: false
                     unique: true
                     foreignKeyName: fk_account_user
-                    references: user(id)
+                    references: user_table(id)
               - column:
                   name: balance
                   defaultValueNumeric: "0"

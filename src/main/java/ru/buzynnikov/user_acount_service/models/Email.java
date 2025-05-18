@@ -9,6 +9,7 @@ import java.util.Objects;
 public class Email {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne

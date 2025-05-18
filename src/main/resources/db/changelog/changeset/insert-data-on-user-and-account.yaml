@@ -4,7 +4,7 @@ databaseChangeLog:
       author: Anton Buzynnikov
       changes:
         - insert:
-            tableName: user
+            tableName: user_table
             columns:
               - column:
                   name: name
@@ -16,7 +16,7 @@ databaseChangeLog:
                   name: password
                   value: "securePass123"
         - insert:
-            tableName: user
+            tableName: user_table
             columns:
               - column:
                   name: name
@@ -28,7 +28,7 @@ databaseChangeLog:
                   name: password
                   value: "mariaPetrovaPassword"
         - insert:
-            tableName: user
+            tableName: user_table
             columns:
               - column:
                   name: name

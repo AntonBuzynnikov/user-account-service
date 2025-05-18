@@ -9,3 +9,32 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+
+jwt:
+  secret: ${JWT_SECRET:ваш-секретный-ключ-должен-быть-достаточно-длинным}
+
+account:
+  update:
+    percent: ${ACCOUNT_UPDATE_PERCENT:10}
+    max-balance: ${ACCOUNT_MAX_BALANCE:207}
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+        transaction: TRACE
+        orm:
+          jpa: DEBUG
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE

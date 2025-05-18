@@ -9,6 +9,7 @@ import java.util.Objects;
 public class Phone {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
