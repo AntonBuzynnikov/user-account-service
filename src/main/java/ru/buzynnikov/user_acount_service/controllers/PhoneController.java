@@ -39,6 +39,16 @@ public class PhoneController {
         throw new NotAuthenticatedException("Вы не авторизованы");
     }
 
+    @PatchMapping
+    public ResponseEntity<Void> updatePhone(@Valid @RequestBody PhoneRequest request, Authentication authentication){
+        if(authentication.getPrincipal() instanceof UserAuthDTO dto) {
+            phoneService.updatePhone(request.phone(), dto.getUserId());
+            return ResponseEntity.noContent().build();
+        } else {
+            throw new NotAuthenticatedException("Вы не авторизованы");
+        }
+    }
+
     /**
      * Обработчик DELETE-запроса для удаления телефонного номера пользователя.
      *
