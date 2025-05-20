@@ -11,10 +11,10 @@ databaseChangeLog:
                   value: "Иван Иванов"
               - column:
                   name: date_of_birth
-                  value: "15.07.1990"
+                  value: 15.07.1990
               - column:
                   name: password
-                  value: "securePass123"
+                  value: "{bcrypt}$2a$10$xQDeEL1W0Bf4Je3xLszix.DnppGReH.UUpqTrIVHBgncWvScnPQBO"   #"securePass123"
         - insert:
             tableName: user_table
             columns:
@@ -23,10 +23,10 @@ databaseChangeLog:
                   value: "Мария Петрова"
               - column:
                   name: date_of_birth
-                  value: "22.11.1985"
+                  value: 22.11.1985
               - column:
                   name: password
-                  value: "mariaPetrovaPassword"
+                  value: "{bcrypt}$2a$10$L2QI7aHccI3rleeEcNXYFuRQsVlAzc30ILNBY1XaDqfaYlgZMOsl2" # "mariaPetrovaPassword"
         - insert:
             tableName: user_table
             columns:
@@ -35,10 +35,10 @@ databaseChangeLog:
                   value: "Алексей Смирнов"
               - column:
                   name: date_of_birth
-                  value: "03.05.1978"
+                  value: 03.05.1978
               - column:
                   name: password
-                  value: "alexSmirnov78"
+                  value:  "{bcrypt}$2a$10$PTftxhT0CDi0/hrgunIederN5liEF.xOAD49UH8nX5SfCSLmjL3xy" #"alexSmirnov78"
   - changeSet:
       id: insert-data-on-account
       author: Anton Buzynnikov
@@ -70,3 +70,65 @@ databaseChangeLog:
               - column:
                   name: balance
                   value: 500.50
+  - changeSet:
+      id: insert-data-on-email
+      author: Anton Buzynnikov
+      changes:
+        - insert:
+            tableName: email_data
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: email
+                  value: "ivanov@example.com"
+        - insert:
+            tableName: email_data
+            columns:
+              - column:
+                  name: user_id
+                  value: 2
+              - column:
+                  name: email
+                  value: "petrova@example.com"
+        - insert:
+            tableName: email_data
+            columns:
+              - column:
+                  name: user_id
+                  value: 3
+              - column:
+                  name: email
+                  value: "smirnov@example.com"
+  - changeSet:
+      id: insert-data-on-phone
+      author: Anton Buzynnikov
+      changes:
+        - insert:
+            tableName: phone_data
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: phone
+                  value: "79995554422"
+        - insert:
+            tableName: phone_data
+            columns:
+              - column:
+                  name: user_id
+                  value: 2
+              - column:
+                  name: phone
+                  value: "79994447788"
+        - insert:
+            tableName: phone_data
+            columns:
+              - column:
+                  name: user_id
+                  value: 3
+              - column:
+                  name: phone
+                  value: "79001002030"

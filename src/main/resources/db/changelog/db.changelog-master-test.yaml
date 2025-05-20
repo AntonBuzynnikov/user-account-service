@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changeset/test/create-test-user-table.yaml
+  - include:
+      file: db/changelog/changeset/test/create-test-account-table.yaml
+  - include:
+      file: db/changelog/changeset/create-email-data-table.yaml
+  - include:
+      file: db/changelog/changeset/create-phone-data-table.yaml
+  - include:
+      file: db/changelog/changeset/test/insert-test-data.yaml

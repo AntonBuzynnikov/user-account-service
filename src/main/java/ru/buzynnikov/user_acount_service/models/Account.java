@@ -3,7 +3,6 @@ package ru.buzynnikov.user_acount_service.models;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -21,11 +20,7 @@ public class Account {
 
     private BigDecimal balance;
 
-    @Column(name = "initial_balance")
-    private BigDecimal initialBalance;
 
-    @Column(name = "last_updated")
-    private LocalDateTime lastUpdated;
 
     public Long getId() {
         return id;
@@ -33,26 +28,6 @@ public class Account {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public BigDecimal getBalance() {
-        return balance;
-    }
-
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
-    }
-
-    public BigDecimal getInitialBalance() {
-        return initialBalance;
-    }
-
-    public LocalDateTime getLastUpdated() {
-        return lastUpdated;
-    }
-
-    public void setLastUpdated(LocalDateTime lastUpdated) {
-        this.lastUpdated = lastUpdated;
     }
 
     public User getUser() {

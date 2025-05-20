@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "user_table")
@@ -19,9 +20,14 @@ public class User {
     private String name;
 
     @Column(name = "date_of_birth")
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
 
     private String password;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Email> emails;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Phone> phones;
 
     public Long getId() {
         return id;
@@ -40,11 +46,13 @@ public class User {
     }
 
     public LocalDate getDateOfBirth() {
-        return LocalDate.parse(dateOfBirth, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        return dateOfBirth;
+//        return LocalDate.parse(dateOfBirth, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        this.dateOfBirth = dateOfBirth;
+//        this.dateOfBirth = dateOfBirth.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 
     public String getPassword() {

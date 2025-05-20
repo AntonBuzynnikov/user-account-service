@@ -4,8 +4,10 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.buzynnikov.user_acount_service.dto.CreateEmailRequest;
+import ru.buzynnikov.user_acount_service.aspect.CreateLog;
+import ru.buzynnikov.user_acount_service.aspect.UpdateLog;
 import ru.buzynnikov.user_acount_service.dto.EmailCreateResponse;
+import ru.buzynnikov.user_acount_service.dto.EmailRequest;
 import ru.buzynnikov.user_acount_service.exceptions.EmailAlreadyExistException;
 import ru.buzynnikov.user_acount_service.exceptions.EmailNotFoundException;
 import ru.buzynnikov.user_acount_service.exceptions.LimitEmailException;
@@ -36,9 +38,11 @@ public class DefaultEmailService implements EmailService {
      * @param userId идентификатор пользователя
      * @return DTO с информацией о созданной почте
      */
+    @CreateLog
     @Transactional
     @Override
-    public EmailCreateResponse addEmail(CreateEmailRequest request, Long userId) {
+    public EmailCreateResponse addEmail(EmailRequest request, Long userId) {
+        isEmailExist(request.email());
         return emailResponse(createEmail(request, userId), userId);
     }
 
@@ -49,12 +53,27 @@ public class DefaultEmailService implements EmailService {
      * @throws EmailNotFoundException если почта не принадлежит пользователю
      * @throws LimitEmailException если у пользователя только одна почта
      */
+    @UpdateLog
     @Transactional
     @Override
     public void deleteEmail(String email, Long userId) {
         isEmailOwner(email, userId);
         isEmailGraterThenOne(userId);
         emailRepository.deleteByEmail(email);
+    }
+
+    /**
+     * Изменяет адрес электронной почты пользователя
+     * @param request DTO с данными для изменения почты
+     * @param userId идентификатор пользователя
+     */
+    @UpdateLog
+    @Transactional
+    @Override
+    public void updateEmail(EmailRequest request, Long userId) {
+        isEmailOwner(request.email(), userId);
+        isEmailExist(request.email());
+        emailRepository.updateEmail(request.email());
     }
 
     /**
@@ -74,12 +93,12 @@ public class DefaultEmailService implements EmailService {
      * @return созданный объект почты
      * @throws EmailAlreadyExistException если почта уже существует в системе
      */
-    private Email createEmail(CreateEmailRequest request, Long userId) {
-        isEmailExist(request.getEmail());
+    private Email createEmail(EmailRequest request, Long userId) {
+        isEmailExist(request.email());
         Email email = new Email();
         User userProxy = entityManager.getReference(User.class, userId);
         email.setUser(userProxy);
-        email.setEmail(request.getEmail());
+        email.setEmail(request.email());
         return emailRepository.save(email);
     }
 

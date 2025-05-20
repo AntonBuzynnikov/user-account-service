@@ -7,6 +7,10 @@ import ru.buzynnikov.user_acount_service.dto.JwtAuthResponse;
 import ru.buzynnikov.user_acount_service.dto.SignInRequest;
 import ru.buzynnikov.user_acount_service.security.models.UserAuthDTO;
 
+/**
+ * Реализация основного сервиса аутентификации.
+ * Отвечает за проверку учетных данных и выдачу JWT-токенов.
+ */
 @Service
 public class DefaultAuthService implements AuthService{
 
@@ -20,14 +24,20 @@ public class DefaultAuthService implements AuthService{
         this.authenticationManager = authenticationManager;
     }
 
+    /**
+     * Процесс аутентификации пользователя и получение JWT-токена.
+     *
+     * @param signInRequest объект запроса с данными для входа (email и пароль)
+     * @return объект JwtAuthResponse с JWT-токеном
+     */
     @Override
     public JwtAuthResponse signIn(SignInRequest signInRequest) {
         System.out.println(authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                signInRequest.getEmail(),
-                signInRequest.getPassword()
+                signInRequest.email(),
+                signInRequest.password()
         )));
 
-        UserAuthDTO userAuthDTO = (UserAuthDTO) detailsService.loadUserByUsername(signInRequest.getEmail());
+        UserAuthDTO userAuthDTO = (UserAuthDTO) detailsService.loadUserByUsername(signInRequest.email());
         String token;
         if (userAuthDTO != null) {
             token = jwtService.generateToken(userAuthDTO);

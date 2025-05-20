@@ -19,7 +19,7 @@ databaseChangeLog:
                   type: VARCHAR(500)
               - column:
                   name: date_of_birth
-                  type: VARCHAR(10)
+                  type: date
                   remarks: Дата будет интерпретирована в формате DMY
               - column:
                   name: password

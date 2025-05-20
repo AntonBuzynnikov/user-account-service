@@ -17,6 +17,10 @@ import ru.buzynnikov.user_acount_service.security.JwtService;
 
 import java.io.IOException;
 
+/**
+ * Фильтр аутентификации по JWT-токену.
+ * Анализирует заголовок Authorization и извлекает оттуда JWT-токен для последующей проверки подлинности пользователя.
+ */
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 
@@ -31,6 +35,16 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     }
 
 
+    /**
+     * Основная логика фильтра аутентификации.
+     * Проверяет наличие и валидность JWT-токена, восстанавливает данные пользователя и устанавливает их в контексте безопасности.
+     *
+     * @param request     объект запроса
+     * @param response    объект ответа
+     * @param filterChain цепочка дальнейших фильтров
+     * @throws ServletException если возникают ошибки сервлета
+     * @throws IOException     если возникают ошибки ввода-вывода
+     */
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,

@@ -12,6 +12,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
+/**
+ * Конфигурация безопасности для Spring Security.
+ * Определяет правила авторизации и аутентификации для разных ресурсов.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -23,11 +27,19 @@ public class SecurityConfig {
         this.jwtAuthFilter = jwtAuthFilter;
     }
 
+    /**
+     * Создает конфигурацию цепочки фильтров безопасности.
+     *
+     * @param http объект для настройки правил безопасности
+     * @return сконфигурированная цепочка фильтров
+     * @throws Exception если возникли ошибки при конфигурации
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("/").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
@@ -35,9 +47,17 @@ public class SecurityConfig {
 
     }
 
-
+    /**
+     * Настройка менеджера аутентификации.
+     *
+     * @param authenticationConfiguration конфигурация аутентификации
+     * @return менеджер аутентификации
+     * @throws Exception если возникли ошибки при получении менеджера
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return  authenticationConfiguration.getAuthenticationManager();
     }
+
+
 }

@@ -10,8 +10,6 @@ public interface AccountService {
     void transferTo(Long fromId, Long toId, BigDecimal amount);
 
 
-
-
-
+    BigDecimal getBalance(Long userId);
 }
 

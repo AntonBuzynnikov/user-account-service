@@ -1,11 +1,41 @@
 services:
-
   db:
+    container_name: postgres-db
     image: postgres:16
     ports:
       - 5432:5432
     restart: always
+    networks:
+      - default
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=user_account_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: user_account_db
+    command: postgres -c datestyle='german'
+  redis-cache:
+    container_name: redis-cache
+    image: redis:latest
+    ports:
+      - 6379:6379
+    networks:
+      - default
+    restart: always
+    environment:
+      REDIS_PASSWORD: password
+  app:
+    container_name: user-account-service
+    build: .
+    ports:
+      - 8080:8080
+    networks:
+      - default
+    links:
+      - db
+      - redis-cache
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/user_account_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+networks:
+  default:
+    driver: bridge

@@ -7,21 +7,19 @@ databaseChangeLog:
             sql: |
               CREATE OR REPLACE PROCEDURE update_all_balances(
                   percent integer,
-                  max_percent integer,
-                  seconds integer
+                  max_percent integer
               )
               LANGUAGE plpgsql
               AS $$
               DECLARE
                   start_time TIMESTAMP := NOW();
-                  add_to_balance decimal(3,2) := 1.0 + percent/100;
-                  max_balance decimal(3,2) := 1.0 + max_percent/100;
+                  add_to_balance numeric := 1.0 + percent/100.0;
+                  max_balance numeric := 1.0 + max_percent/100.0;
               BEGIN
                   UPDATE account 
-                  SET balance = LEAST((balance*power(add_to_balance,EXTRACT(EPOCH FROM (start_time - last_updated)))::integer/seconds), initial_balance*max_balance),
-                      last_updated = start_time;
+                  SET balance = LEAST(balance*add_to_balance, initial_balance*max_balance);
               END; 
               $$;
             stripComments: true
             splitStatements: false
-            endDelimiter: $$
+            endDelimiter: //

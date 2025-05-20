@@ -1,0 +1,134 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-data-on-user
+      author: Anton Buzynnikov
+      changes:
+        - insert:
+            tableName: user_table
+            columns:
+              - column:
+                  name: name
+                  value: "Иван Иванов"
+              - column:
+                  name: date_of_birth
+                  value: "1990-07-15"
+              - column:
+                  name: password
+                  value: "{bcrypt}$2a$10$xQDeEL1W0Bf4Je3xLszix.DnppGReH.UUpqTrIVHBgncWvScnPQBO"   #"securePass123"
+        - insert:
+            tableName: user_table
+            columns:
+              - column:
+                  name: name
+                  value: "Мария Петрова"
+              - column:
+                  name: date_of_birth
+                  value: "1985-11-22"
+              - column:
+                  name: password
+                  value: "{bcrypt}$2a$10$L2QI7aHccI3rleeEcNXYFuRQsVlAzc30ILNBY1XaDqfaYlgZMOsl2" # "mariaPetrovaPassword"
+        - insert:
+            tableName: user_table
+            columns:
+              - column:
+                  name: name
+                  value: "Алексей Смирнов"
+              - column:
+                  name: date_of_birth
+                  value: "1978-05-03"
+              - column:
+                  name: password
+                  value:  "{bcrypt}$2a$10$PTftxhT0CDi0/hrgunIederN5liEF.xOAD49UH8nX5SfCSLmjL3xy" #"alexSmirnov78"
+  - changeSet:
+      id: insert-data-on-account
+      author: Anton Buzynnikov
+      changes:
+        - insert:
+            tableName: account
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: balance
+                  value: 1500.75
+        - insert:
+            tableName: account
+            columns:
+              - column:
+                  name: user_id
+                  value: 2
+              - column:
+                  name: balance
+                  value: 3200.00
+        - insert:
+            tableName: account
+            columns:
+              - column:
+                  name: user_id
+                  value: 3
+              - column:
+                  name: balance
+                  value: 500.50
+  - changeSet:
+      id: insert-data-on-email
+      author: Anton Buzynnikov
+      changes:
+        - insert:
+            tableName: email_data
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: email
+                  value: "ivanov@example.com"
+        - insert:
+            tableName: email_data
+            columns:
+              - column:
+                  name: user_id
+                  value: 2
+              - column:
+                  name: email
+                  value: "petrova@example.com"
+        - insert:
+            tableName: email_data
+            columns:
+              - column:
+                  name: user_id
+                  value: 3
+              - column:
+                  name: email
+                  value: "smirnov@example.com"
+  - changeSet:
+      id: insert-data-on-phone
+      author: Anton Buzynnikov
+      changes:
+        - insert:
+            tableName: phone_data
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: phone
+                  value: "79995554422"
+        - insert:
+            tableName: phone_data
+            columns:
+              - column:
+                  name: user_id
+                  value: 2
+              - column:
+                  name: phone
+                  value: "79994447788"
+        - insert:
+            tableName: phone_data
+            columns:
+              - column:
+                  name: user_id
+                  value: 3
+              - column:
+                  name: phone
+                  value: "79001002030"

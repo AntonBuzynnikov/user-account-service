@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-account-table
+      author: Anton Buzynnikov
+      changes:
+        - createTable:
+            tableName: account
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    unique: true
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    unique: true
+                    foreignKeyName: fk_account_user
+                    references: user_table(id)
+              - column:
+                  name: balance
+                  defaultValueNumeric: "0"
+                  type: DECIMAL(15,2)

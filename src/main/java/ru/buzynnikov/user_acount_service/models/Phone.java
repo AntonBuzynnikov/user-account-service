@@ -18,6 +18,14 @@ public class Phone {
 
     private String phone;
 
+    public Phone(User user, String phone) {
+        this.user = user;
+        this.phone = phone;
+    }
+
+    public Phone() {
+    }
+
     public Long getId() {
         return id;
     }

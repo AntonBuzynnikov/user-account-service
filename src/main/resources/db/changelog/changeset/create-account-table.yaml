@@ -31,10 +31,6 @@ databaseChangeLog:
                   type: DECIMAL(15,2)
                   constraints:
                     nullable: false
-              - column:
-                  name: last_updated
-                  type: TIMESTAMP
-                  defaultValueComputed: CURRENT_TIMESTAMP
   - changeSet:
       id: create-set-initial-balance-trigger
       author: Anton Buzynnikov

@@ -7,6 +7,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Моделирует сущность пользователя для целей аутентификации и авторизации.
+ * Реализует интерфейс UserDetails из Spring Security, предоставляя необходимые методы и данные.
+ */
 public class UserAuthDTO  implements UserDetails {
 
     private Long userId;
